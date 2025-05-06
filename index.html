@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Transformationsplan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .progress-bar { width: 0; transition: width 2s ease; position: relative; }
+    .bar-percent { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); font-weight: 600; white-space: nowrap; }
+    .popup { background-color: rgba(0, 0, 0, 0.6); }
+  </style>
+</head>
+
+<body class="bg-white min-h-screen flex items-start justify-center px-4 pt-10">
+<div class="text-center w-full max-w-xl py-4 sm:py-8">
+  <h3 class="text-2xl sm:text-3xl md:text-4xl font-bold text-black leading-snug">
+    Fast fertig. Wir ermitteln die <span class="text-[#808080]">Behandlung</span>
+    <span class="text-black">die zu dir passt</span>
+  </h3>
+
+  <div class="mt-10 space-y-8 text-left">
+    <!-- Steps -->
+    <div id="step-1" class="flex flex-col hidden">
+      <div class="flex justify-between items-center">
+        <p class="text-base sm:text-lg text-gray-800" id="label-1">Ziele definieren</p>
+        <i class="fas fa-check text-green-500 text-lg hidden" id="check-1"></i>
+      </div>
+      <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+        <div id="bar-1" class="h-full bg-green-500 progress-bar">
+          <span class="bar-percent" id="percent-1">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="step-2" class="flex flex-col hidden">
+      <div class="flex justify-between items-center">
+        <p class="text-base sm:text-lg text-gray-800" id="label-2">Analyse deines Lebensstils</p>
+        <i class="fas fa-check text-green-500 text-lg hidden" id="check-2"></i>
+      </div>
+      <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+        <div id="bar-2" class="h-full bg-green-500 progress-bar">
+          <span class="bar-percent" id="percent-2">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="step-3" class="flex flex-col hidden">
+      <div class="flex justify-between items-center">
+        <p class="text-base sm:text-lg text-gray-800" id="label-3">Maßgeschneiderte Lösung wird gesucht</p>
+        <i class="fas fa-check text-green-500 text-lg hidden" id="check-3"></i>
+      </div>
+      <div class="w-full h-4 bg-gray-200 rounded-full mt-2 overflow-hidden">
+        <div id="bar-3" class="h-full bg-green-500 progress-bar">
+          <span class="bar-percent" id="percent-3">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Button -->
+  <div class="mt-10 sm:mt-12 hidden" id="final-button">
+    <a href="https://baldurmen.de/products/helmwuchs-mit-der-kraft-nordischer-pflanzen-gegen-haarausfall"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="bg-[#808080] hover:bg-[#808080] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
+      Entdecke das passende Produkt für dich
+      <i class="fas fa-play ml-3 text-white"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="fixed inset-0 z-50 flex items-center justify-center hidden popup px-4">
+  <div class="bg-white w-full max-w-sm p-6 sm:p-8 rounded-lg shadow-xl text-center">
+    <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4"></h2>
+    <p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6"></p>
+    <div class="flex gap-3 sm:gap-4 justify-center flex-wrap">
+      <button onclick="handleResponse()" class="bg-[#808080] text-white px-5 py-2 rounded-md text-sm sm:text-base">Ja</button>
+      <button onclick="handleResponse()" class="bg-gray-300 text-gray-800 px-5 py-2 rounded-md text-sm sm:text-base">Nein</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let step = 1;
+
+  const popupContent = {
+    1: {
+      title: "Um fortzufahren, bitte beantworten",
+      message: "Möchtest du dein Gesicht einfach, aber effektiv pflegen?"
+    },
+    2: {
+      title: "Um fortzufahren, bitte beantworten",
+      message: "Möchtest du dein Hautbild verbessern OHNE deine Gewohnheiten zu ändern?"
+    },
+    3: {
+      title: "Um fortzufahren, bitte beantworten",
+      message: "Würdest du dich jünger aussehend selbstbewusster fühlen?"
+    }
+  };
+
+  const stepLabels = {
+    1: { loading: "Ziele werden definiert...", done: "Ziel definiert" },
+    2: { loading: "Analyse deines Lebensstils...", done: "Hautprofil abgeschlossen" },
+    3: { loading: "Maßgeschneiderte Lösung wird gesucht...", done: "Essentielle Behandlung ausgewählt" }
+  };
+
+  function showPopup() {
+    const content = popupContent[step];
+    document.querySelector("#popup h2").textContent = content.title;
+    document.querySelector("#popup p").textContent = content.message;
+    document.getElementById("popup").classList.remove("hidden");
+  }
+
+  function hidePopup() {
+    document.getElementById("popup").classList.add("hidden");
+  }
+
+  function showRelevantSteps() {
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById(`step-${i}`);
+      const label = document.getElementById(`label-${i}`);
+      if (i <= step) {
+        el.classList.remove("hidden");
+        if (label && label.textContent === stepLabels[i].loading) {
+          label.textContent = stepLabels[i].loading;
+        }
+      } else {
+        el.classList.add("hidden");
+      }
+    }
+  }
+
+  function fillBar(id, targetPercent, callback) {
+    showRelevantSteps();
+
+    const bar = document.getElementById(id);
+    const percentId = id.replace('bar', 'percent');
+    const percentLabel = document.getElementById(percentId);
+    const labelId = id.replace('bar', 'label');
+
+    const target = parseInt(targetPercent);
+    let current = 0;
+
+    const interval = setInterval(() => {
+      if (current >= target) {
+        clearInterval(interval);
+        if (target === 100) {
+          document.getElementById(labelId).textContent = stepLabels[step].done;
+        }
+        if (callback) {
+          setTimeout(callback, 1500);
+        }
+      } else {
+        current++;
+        bar.style.width = `${current}%`;
+        if (percentLabel) percentLabel.textContent = `${current}%`;
+      }
+    }, 50);
+  }
+
+  function handleResponse() {
+    hidePopup();
+
+    const barId = `bar-${step}`;
+    const checkId = `check-${step}`;
+    const labelId = `label-${step}`;
+
+    document.getElementById(barId).style.width = "100%";
+    document.getElementById(`percent-${step}`).textContent = "100%";
+    document.getElementById(checkId).classList.remove("hidden");
+    document.getElementById(labelId).textContent = stepLabels[step].done;
+
+    step++;
+
+    if (step <= 3) {
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 4000);
+    } else {
+      showRelevantSteps();
+      setTimeout(() => {
+        document.getElementById("final-button").classList.remove("hidden");
+      }, 1500);
+    }
+  }
+
+  setTimeout(() => {
+    showRelevantSteps();
+    fillBar("bar-1", "50", () => {
+      setTimeout(showPopup, 2000);
+    });
+  }, 5000);
+</script>
+
+</body>
+</html>

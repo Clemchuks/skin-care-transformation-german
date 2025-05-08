@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
     body { font-family: 'Montserrat', sans-serif; }
     .progress-bar { width: 0; transition: width 2s ease; position: relative; }
     .bar-percent { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); font-weight: 600; white-space: nowrap; }
@@ -66,7 +68,7 @@
     <a href="https://baldurmen.de/products/helmwuchs-mit-der-kraft-nordischer-pflanzen-gegen-haarausfall"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-[#808080] hover:bg-[#808080] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
+      class="bg-[#89FB72] hover:bg-[#89FB72] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
       Entdecke das passende Produkt für dich
       <i class="fas fa-play ml-3 text-white"></i>
     </a>
@@ -79,8 +81,8 @@
     <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4"></h2>
     <p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6"></p>
     <div class="flex gap-3 sm:gap-4 justify-center flex-wrap">
-      <button onclick="handleResponse()" class="bg-[#808080] text-white px-5 py-2 rounded-md text-sm sm:text-base">Ja</button>
-      <button onclick="handleResponse()" class="bg-gray-300 text-gray-800 px-5 py-2 rounded-md text-sm sm:text-base">Nein</button>
+      <button onclick="handleResponse()" class="bg-[#89FB72] text-white px-5 py-2 rounded-md text-sm sm:text-base">Ja</button>
+      <button onclick="handleResponse()" class="bg-[#89FB72] text-gray-800 px-5 py-2 rounded-md text-sm sm:text-base">Nein</button>
     </div>
   </div>
 </div>
@@ -178,21 +180,21 @@
     step++;
 
     if (step <= 3) {
-      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 4000);
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 1000);
     } else {
       showRelevantSteps();
       setTimeout(() => {
         document.getElementById("final-button").classList.remove("hidden");
-      }, 1500);
+      }, 1000);
     }
   }
 
   setTimeout(() => {
     showRelevantSteps();
     fillBar("bar-1", "50", () => {
-      setTimeout(showPopup, 2000);
+      setTimeout(showPopup, 1000);
     });
-  }, 5000);
+  }, 1000);
 </script>
 
 </body>

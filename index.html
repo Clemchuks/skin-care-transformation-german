@@ -68,7 +68,7 @@
     <a href="https://baldurmen.de/products/helmwuchs-mit-der-kraft-nordischer-pflanzen-gegen-haarausfall"
       target="_blank"
       rel="noopener noreferrer"
-      class="bg-[#89FB72] hover:bg-[#89FB72] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-lg flex items-center justify-center w-full">
+      class="bg-[#28c45c] hover:bg-[#28c45c] text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-8 sm:py-4 rounded-full flex items-center justify-center w-full">
       Entdecke das passende Produkt für dich
       <i class="fas fa-play ml-3 text-white"></i>
     </a>
@@ -81,8 +81,8 @@
     <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-3 sm:mb-4"></h2>
     <p class="text-sm sm:text-base text-gray-600 mb-5 sm:mb-6"></p>
     <div class="flex gap-3 sm:gap-4 justify-center flex-wrap">
-      <button onclick="handleResponse()" class="bg-[#89FB72] text-white px-5 py-2 rounded-md text-sm sm:text-base">Ja</button>
-      <button onclick="handleResponse()" class="bg-[#89FB72] text-gray-800 px-5 py-2 rounded-md text-sm sm:text-base">Nein</button>
+      <button onclick="handleResponse()" class="bg-[#28c45c] text-white px-5 py-2 rounded-full text-sm sm:text-base">Ja</button>
+      <button onclick="handleResponse()" class="bg-[#28c45c] text-gray-800 px-5 py-2 rounded-full text-sm sm:text-base">Nein</button>
     </div>
   </div>
 </div>
@@ -180,21 +180,21 @@
     step++;
 
     if (step <= 3) {
-      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 1000);
+      setTimeout(() => fillBar(`bar-${step}`, "50", showPopup), 0);
     } else {
       showRelevantSteps();
       setTimeout(() => {
         document.getElementById("final-button").classList.remove("hidden");
-      }, 1000);
+      }, 0);
     }
   }
 
   setTimeout(() => {
     showRelevantSteps();
     fillBar("bar-1", "50", () => {
-      setTimeout(showPopup, 1000);
+      setTimeout(showPopup, 0);
     });
-  }, 1000);
+  }, 0);
 </script>
 
 </body>
